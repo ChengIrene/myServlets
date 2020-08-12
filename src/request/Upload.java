@@ -26,16 +26,16 @@ public class Upload extends HttpServlet {
         Range fileRange = fileRange(contentAsTxt, request.getContentType());
 
         write(
-            content,
-            contentAsTxt.substring(0, fileRange.start).getBytes("ISO-8859-1").length,
-            contentAsTxt.substring(0, fileRange.end).getBytes("ISO-8859-1").length,
-            String.format("C:/work/%s", filename)
+                content,
+                contentAsTxt.substring(0, fileRange.start).getBytes("ISO-8859-1").length,
+                contentAsTxt.substring(0, fileRange.end).getBytes("ISO-8859-1").length,
+                String.format("C:/work/%s", filename)
         );
     }
 
     // 讀取請求本體
     private byte[] bodyContent(HttpServletRequest request) throws IOException {
-        try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             InputStream in = request.getInputStream();  //取得ServletInputStream物件
             byte[] buffer = new byte[1024];
             int length = -1;
@@ -54,7 +54,7 @@ public class Upload extends HttpServlet {
 
         String filename = matcher.group(1);
         //如果名稱上包含資料夾符號「\」,就只取得最後的檔名
-        if(filename.contains("\\")) {
+        if (filename.contains("\\")) {
             return filename.substring(filename.lastIndexOf("\\") + 1);
         }
         return filename;
@@ -64,6 +64,7 @@ public class Upload extends HttpServlet {
     private static class Range {
         final int start;
         final int end;
+
         public Range(int start, int end) {
             this.start = start;
             this.end = end;
@@ -71,7 +72,7 @@ public class Upload extends HttpServlet {
     }
 
     // 取得檔案邊界範圍
-    private Range fileRange (String content, String contentType) {
+    private Range fileRange(String content, String contentType) {
         Matcher matcher = fileNameRegex.matcher(content);
         matcher.find();
         int start = matcher.start(1);
@@ -84,7 +85,7 @@ public class Upload extends HttpServlet {
 
     // 儲存檔案內容
     private void write(byte[] content, int start, int end, String file) throws IOException {
-        try(FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             fileOutputStream.write(content, start, (end - start));
         }
     }

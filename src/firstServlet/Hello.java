@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 @WebServlet(
         name = "HelloServlet",  //servlet的名稱是Hello
@@ -23,7 +24,12 @@ public class Hello extends HttpServlet {  //繼承HttpServlet
 
         response.setContentType("text/html;charset=UTF-8");
 
-        String name = request.getParameter("name");  //取得請求參數
+        String name = Optional.ofNullable(request.getParameter("name"))  //使用Optional
+                .map(value -> value.replaceAll("<", "&lt;"))  //取代為HTML實體名稱
+                .map(value -> value.replaceAll(">", "&gt;"))
+                .orElse("Guest");  //沒有提供請求參數時的預設值
+
+                //request.getParameter("name");  //取得請求參數
 
         PrintWriter out = response.getWriter();  //取得回應輸出物件
         out.print("<!DOCTYPE html>");

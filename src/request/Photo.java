@@ -29,16 +29,16 @@ public class Photo extends HttpServlet {
         matcher.find();
 
         String filename = matcher.group(1);
-        if(filename.contains("\\")) {
+        if (filename.contains("\\")) {
             return filename.substring(filename.lastIndexOf("\\") + 1);
         }
         return filename;
     }
 
     private void write(Part photo, String filename) throws IOException, FileNotFoundException {
-        try(InputStream in = photo.getInputStream();
-            OutputStream out = new FileOutputStream(
-                    String.format("c:/work/%s", filename))) {
+        try (InputStream in = photo.getInputStream();
+             OutputStream out = new FileOutputStream(
+                     String.format("c:/work/%s", filename))) {
             byte[] buffer = new byte[1024];
             int length = -1;
             while ((length = in.read(buffer)) != -1) {

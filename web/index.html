@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">  <!-- 可以Alt+Enter import出來!!! -->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- <link rel="stylesheet" href="css/gossip.css" type="text/css"> -->
+</head>
+<body>
+    <div id="login">
+        <div>
+            <img src='../src/main/resources/images/okita.PNG' alt='Gossip blog'/>  <!-- alt:圖片失效時用文字取代 -->
+        </div>
+
+        <a href='register'>まだ会員ではないでしょうか？</a>
+        <p></p>  <!-- p為段落換2行 br換1行 -->
+
+            <ul th:if="${errors != null}" style='color: rgb(255, 0, 0);'>
+                <li th:each="error : ${errors}" th:text="${error}">error message</li>
+            </ul>
+
+        <form method='post' action='login'>
+            <table>
+                <tr>
+                    <td>名称</td>
+                    <td><input type='text' name='username' th:value="${username}"></td>
+                </tr>
+                <tr>
+                    <td>パスワード</td>
+                    <td><input type='password' name='password'></td>
+                </tr>
+                <tr>  <!-- colspan為跨欄之意 -->
+                    <td colspan='2' align='center'><input type='submit' value="ログイン"></td>
+                </tr>
+                <tr>
+                    <td colspan='2'><a herf='static/forgot.html'>パスワードをお忘れですか</a></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div>
+        <h1>ブロック～</h1>
+        <ul>
+            <li>今はどんな気持ち？</li>
+            <li>言いたい事があれば、言ってもいいです！</li>
+            <li>どんな事でもいい、書きましょう！</li>
+        </ul>
+    </div>
+
+</body>
+</html>

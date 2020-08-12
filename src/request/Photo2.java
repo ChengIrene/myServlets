@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@MultipartConfig(location="c:/workspace")  // 設定location屬性
+@MultipartConfig(location = "c:/workspace")  // 設定location屬性
 @WebServlet("/photo2")
 public class Photo2 extends HttpServlet {
     private final Pattern fileNameRegex = Pattern.compile("filename=\"(.*)\"");
@@ -31,7 +31,7 @@ public class Photo2 extends HttpServlet {
 
         String filename = matcher.group(1);
         if (filename.contains("\\")) {
-            return filename.substring(filename.lastIndexOf("\\") + 1 );
+            return filename.substring(filename.lastIndexOf("\\") + 1);
         }
 
         return filename;
